@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movies with Ratings 75+</title>
+</head>
+<body>
+<h1>Movies with Ratings 75+</h1>
+<ul>
+    {% for movie in movies %}
+    <li>{{ movie.movie_name }} - {{ movie.rating }}</li>
+    {% endfor %}
+</ul>
+<form id="movieForm">
+    <input type="text" id="movieName" placeholder="Enter a movie title" required>
+    <button type="submit">Get Movie Rating</button>
+</form>
+<a href="/best_movies">Best Movies</a>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("movieForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+        const movieName = document.getElementById("movieName").value;
+
+        const data = { movie_name: movieName };
+
+        fetch("/add_movie", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    });
+});
+</script>
+</body>
+</html>

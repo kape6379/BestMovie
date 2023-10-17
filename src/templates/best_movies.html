@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Best Movies with Ratings 90+</h1>
+<ul>
+    {% for movie in bestmovies %}
+    <li>{{ movie.movie_name }} - {{ movie.rating }}</li>
+    {% endfor %}
+</ul>
+<a href="/">Back to All Movies</a>
+</body>
+</html>
