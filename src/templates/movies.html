@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Movies with Ratings 75+</title>
+    <title>Movies from Rotten Tomatoes</title>
 </head>
 <body>
-<h1>Movies with Ratings 75+</h1>
+<h1>Listed below are movies fetched from Rotten Tomatoes. Add some movies, check out their ratings, and click Best Movies to find movies with tomatometer ratings of 90+!</h1>
 <ul>
     {% for movie in movies %}
     <li>{{ movie.movie_name }} - {{ movie.rating }}</li>
