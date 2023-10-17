@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 import urllib.parse
-
+import os
 import requests
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://movie:movie@localhost:5432/movie_rating'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+
 
 db = SQLAlchemy(app)
 
@@ -36,20 +37,6 @@ def get_movie_rating(movie_name):
             return None  # Movie not found
     else:
         return None  # API failure
-
-
-def fetch_and_store_movie_data(movie_name):
-    encoded_movie_name = urllib.parse.quote(movie_name)
-    response = requests.get(f"{API_BASE_URL}/movie/{encoded_movie_name}")
-
-    if response.status_code == 200:
-        movie_data = response.json()
-        movie_name = movie_data.get("title")
-        rating = float(movie_data.get("tomatometer", None))
-
-        movierating = MovieRating(movie_name=movie_name, rating=rating)
-        db.session.add(movierating)
-        db.session.commit()
 
 
 if __name__ == "__main__":
