@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 import urllib.parse
-import os
+
 import requests
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
-
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://movie:movie@localhost:5432/movie_rating'
 
 db = SQLAlchemy(app)
 
